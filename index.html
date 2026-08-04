@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Neverland Grove 🍄 Happy Birthday, Wix</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500;1,9..144,700&family=Quicksand:wght@400;500;600;700&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FAF3E9;
+    --sage:#8FAB86;
+    --sage-dark:#5E7955;
+    --rose:#E3AFC0;
+    --rust:#C1694F;
+    --forest:#3D4A35;
+    --gold:#D9A441;
+    --paper:#FFFCF6;
+    --night:#211B36;
+    --night2:#38295A;
+    --lavender:#B9A6E0;
+    --starlight:#F4E9C9;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-snap-type:y mandatory;scroll-behavior:smooth;}
+  body{
+    font-family:'Quicksand',sans-serif;
+    background:var(--cream);
+    color:var(--forest);
+    overflow-x:hidden;
+  }
+  section{
+    min-height:100vh;
+    scroll-snap-align:start;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    padding:6vh 6vw;
+    text-align:center;
+    overflow:hidden;
+  }
+  h1,h2,h3{font-family:'Fraunces',serif;font-weight:600;}
+  .eyebrow{
+    font-family:'Quicksand';
+    font-weight:700;
+    letter-spacing:.25em;
+    text-transform:uppercase;
+    font-size:.7rem;
+    color:var(--sage-dark);
+    margin-bottom:1rem;
+  }
+
+  /* ---------- floating spores background ---------- */
+  .spores{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden;}
+  .spore{
+    position:absolute;
+    bottom:-5vh;
+    border-radius:50%;
+    background:radial-gradient(circle at 30% 30%, #fff9, var(--gold) 70%);
+    opacity:.55;
+    animation:float linear infinite;
+  }
+  @keyframes float{
+    0%{transform:translateY(0) translateX(0) scale(1);opacity:0;}
+    10%{opacity:.6;}
+    90%{opacity:.4;}
+    100%{transform:translateY(-115vh) translateX(20px) scale(.6);opacity:0;}
+  }
+
+  /* ---------- page nav dots ---------- */
+  .page-nav{
+    position:fixed;right:18px;top:50%;transform:translateY(-50%);
+    display:flex;flex-direction:column;gap:12px;z-index:20;
+  }
+  .page-nav a{
+    width:9px;height:9px;border-radius:50%;
+    background:rgba(61,74,53,.25);
+    display:block;transition:all .3s;
+  }
+  .page-nav a.active{background:var(--gold);transform:scale(1.4);}
+  @media (max-width:600px){ .page-nav{right:10px;gap:9px;} .page-nav a{width:7px;height:7px;} }
+
+  /* ---------- stickers ---------- */
+  .sticker{
+    position:absolute;z-index:3;
+    display:flex;align-items:center;justify-content:center;
+    border-radius:50%;
+    box-shadow:0 6px 16px rgba(0,0,0,.15);
+    user-select:none;pointer-events:none;
+  }
+  .sticker.star{background:radial-gradient(circle at 35% 30%, #fff, var(--lavender) 75%);}
+  .sticker.mush{background:radial-gradient(circle at 35% 30%, #fff, var(--rose) 75%);}
+  @keyframes stickerSpin{0%,100%{transform:rotate(var(--r,0deg));}50%{transform:rotate(calc(var(--r,0deg) + 8deg));}}
+
+  /* ---------- PAGE 1 : hero ---------- */
+  #hero{background:linear-gradient(180deg,#FAF3E9 0%,#F1E7D6 100%);}
+  .mush-row{display:flex;gap:1.2rem;margin-bottom:2rem;font-size:2.4rem;z-index:2;}
+  .mush-row span{animation:bob 3s ease-in-out infinite;}
+  .mush-row span:nth-child(2){animation-delay:.4s;}
+  .mush-row span:nth-child(3){animation-delay:.8s;}
+  .mush-row span:nth-child(4){animation-delay:1.2s;}
+  @keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(-14px);}}
+  #hero h1{
+    font-size:clamp(2.4rem,7vw,4.6rem);
+    color:var(--forest);
+    z-index:2;
+    line-height:1.05;
+  }
+  #hero h1 em{color:var(--rust);font-style:italic;}
+  #hero p{max-width:520px;margin-top:1.2rem;font-size:1.15rem;color:var(--sage-dark);z-index:2;}
+  .scroll-hint{
+    position:absolute;bottom:5vh;font-size:.85rem;letter-spacing:.15em;
+    text-transform:uppercase;color:var(--sage-dark);opacity:.7;
+    animation:pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse{0%,100%{opacity:.4;}50%{opacity:.9;}}
+
+  /* ---------- shy gift tag ---------- */
+  .gift-tag{
+    position:absolute;top:6vh;right:6vw;z-index:3;
+    background:var(--paper);color:var(--rust);
+    font-family:'Fraunces';font-style:italic;font-size:.95rem;
+    padding:.6rem 1.1rem;border-radius:14px 14px 14px 2px;
+    box-shadow:0 8px 20px rgba(61,74,53,.18);
+    transform:rotate(4deg);
+    animation:tagFloat 4s ease-in-out infinite;
+  }
+  @keyframes tagFloat{0%,100%{transform:rotate(4deg) translateY(0);}50%{transform:rotate(2deg) translateY(-6px);}}
+  @media (max-width:600px){
+    .gift-tag{top:auto;bottom:11vh;right:50%;transform:translateX(50%) rotate(-2deg);font-size:.85rem;}
+  }
+
+  /* ---------- PAGE 2 : candles ---------- */
+  #candles{background:var(--forest);color:var(--cream);}
+  #candles h2{font-size:clamp(1.8rem,5vw,3rem);margin-bottom:.5rem;}
+  #candles .sub{color:#cfd9c6;margin-bottom:3.2rem;max-width:480px;}
+  .cake{
+    position:relative;width:min(340px,80vw);
+    background:linear-gradient(180deg,#8B5A3C,#6E4530);
+    height:110px;border-radius:14px 14px 40px 40px;
+    box-shadow:0 20px 40px rgba(0,0,0,.35);
+    margin-top:100px;
+    transition:opacity .5s;
+  }
+  .cake::before{
+    content:"";position:absolute;top:-14px;left:0;right:0;height:28px;
+    background:var(--rose);border-radius:14px;
+  }
+  .candle-wrap{
+    position:absolute;top:-72px;left:0;right:0;
+    display:flex;justify-content:center;gap:22px;
+  }
+  .candle{width:8px;height:52px;background:var(--gold);border-radius:2px;position:relative;}
+  .flame{
+    position:absolute;top:-18px;left:50%;transform:translateX(-50%);
+    width:12px;height:18px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;
+    background:radial-gradient(circle,#FFE9A8,#FF8A3D 70%);
+    transition:opacity .3s, transform .3s;
+    cursor:pointer;
+  }
+  .flame.out{opacity:0;transform:translateX(-50%) scale(.3);}
+  #candles .tap-msg{margin-top:2.8rem;font-size:.9rem;color:#cfd9c6;}
+  #candles .made-wish{
+    margin-top:1.4rem;font-family:'Fraunces';font-style:italic;font-size:1.3rem;color:var(--gold);
+    opacity:0;transition:opacity .6s;
+  }
+  #candles .made-wish.show{opacity:1;}
+
+  .cut-btn{
+    margin-top:1.8rem;background:var(--gold);color:var(--forest);border:none;
+    padding:.7rem 1.6rem;border-radius:999px;font-family:'Quicksand';font-weight:700;
+    font-size:.9rem;cursor:pointer;opacity:0;transform:translateY(10px);
+    transition:opacity .5s, transform .5s;
+  }
+  .cut-btn.show{opacity:1;transform:translateY(0);}
+  .cut-btn:disabled{opacity:.5;cursor:default;}
+  .slice-scene{
+    margin-top:1.6rem;display:flex;align-items:center;gap:.6rem;
+    font-size:2.2rem;opacity:0;transform:scale(.7);transition:all .5s;
+  }
+  .slice-scene.show{opacity:1;transform:scale(1);}
+  .slice-msg{margin-top:.6rem;font-family:'Fraunces';font-style:italic;color:var(--gold);opacity:0;transition:opacity .6s;font-size:1.05rem;}
+  .slice-msg.show{opacity:1;}
+
+  /* ---------- PAGE 3 : certificate ---------- */
+  #cert{background:var(--paper);}
+  .certificate{
+    border:3px double var(--rust);
+    padding:3rem 2.4rem;
+    max-width:560px;
+    background:#fffaf1;
+    position:relative;
+    box-shadow:0 10px 40px rgba(61,74,53,.12);
+  }
+  .certificate::before,.certificate::after{
+    content:"🍄";position:absolute;font-size:1.6rem;top:14px;
+  }
+  .certificate::before{left:16px;}
+  .certificate::after{right:16px;}
+  .certificate h2{font-size:clamp(1.5rem,4vw,2.1rem);color:var(--rust);margin-bottom:1.2rem;}
+  .certificate p{font-size:1.02rem;line-height:1.75;margin-bottom:.9rem;}
+  .certificate .name{
+    font-family:'Fraunces';font-style:italic;font-size:1.6rem;color:var(--forest);margin:1rem 0;
+  }
+  .certificate .date{font-size:.85rem;color:var(--sage-dark);margin-bottom:1.4rem;}
+  .sig-row{display:flex;justify-content:space-between;gap:1rem;margin-top:1.8rem;}
+  .sig{width:47%;text-align:center;}
+  .sig .mark{
+    font-family:'Caveat',cursive;font-size:1.7rem;color:var(--forest);
+    border-bottom:1px solid #d8cba9;padding-bottom:.3rem;min-height:2.2rem;
+  }
+  .sig .mark.blank{color:#c9bfa4;font-size:1rem;font-family:'Quicksand';}
+  .sig .lbl{font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--sage-dark);margin-top:.4rem;}
+  .certificate .stamp{
+    margin-top:1.6rem;font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;
+    color:var(--sage-dark);border-top:1px solid #e2d8c3;padding-top:1rem;
+  }
+
+  /* ---------- PAGE 4 : mushroom + shoko corner (night sky shift) ---------- */
+  #fan{background:linear-gradient(180deg,#F1E7D6,#EADFCB);}
+  .grid{
+    display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;max-width:560px;margin-top:2rem;
+  }
+  .card{
+    background:var(--paper);border-radius:18px;padding:1.4rem 1rem;
+    box-shadow:0 8px 20px rgba(61,74,53,.1);
+    transition:transform .25s;
+    cursor:pointer;
+    perspective:600px;
+  }
+  .card:hover{transform:translateY(-6px);}
+  .card .ic{font-size:2rem;margin-bottom:.5rem;display:block;}
+  .card h3{font-size:1rem;margin-bottom:.4rem;color:var(--rust);}
+  .card p{font-size:.85rem;color:var(--sage-dark);line-height:1.4;}
+  .card .fact{
+    font-size:.78rem;color:var(--rust);margin-top:.5rem;max-height:0;overflow:hidden;
+    opacity:0;transition:all .35s;line-height:1.4;
+  }
+  .card.flipped .fact{max-height:100px;opacity:1;margin-top:.6rem;}
+
+  .star-shrine{
+    margin-top:2.6rem;width:100%;max-width:560px;
+    background:radial-gradient(ellipse at top, var(--night2), var(--night));
+    border-radius:22px;padding:2.4rem 1.6rem;position:relative;overflow:hidden;
+    box-shadow:0 20px 50px rgba(33,27,54,.35);
+  }
+  .star-shrine .twinkles{position:absolute;inset:0;}
+  .star-shrine .twinkles span{
+    position:absolute;color:var(--starlight);font-size:.7rem;
+    animation:twinkle 2.4s ease-in-out infinite;
+  }
+  @keyframes twinkle{0%,100%{opacity:.15;}50%{opacity:1;}}
+  .star-shrine h3{color:var(--starlight);font-size:1.3rem;position:relative;z-index:2;margin-bottom:.6rem;}
+  .star-shrine p{color:var(--lavender);font-size:.9rem;max-width:400px;margin:0 auto;position:relative;z-index:2;line-height:1.6;}
+  .star-shrine .big-star{font-size:2.6rem;position:relative;z-index:2;margin-bottom:.6rem;animation:bob 3.5s ease-in-out infinite;}
+
+  /* ---------- PAGE 5 : message ---------- */
+  #message{background:var(--sage);color:var(--cream);}
+  #message .letter{
+    max-width:560px;background:var(--paper);color:var(--forest);
+    border-radius:20px;padding:2.6rem 2rem;text-align:left;
+    box-shadow:0 20px 50px rgba(0,0,0,.2);
+    position:relative;
+  }
+  #message .letter::before{content:"🍄";position:absolute;top:-22px;left:24px;font-size:2rem;}
+  #message .letter p{margin-bottom:1rem;line-height:1.7;font-size:1.02rem;}
+  #message .sign{font-family:'Caveat',cursive;font-size:1.7rem;margin-top:1rem;color:var(--rust);}
+
+  /* ---------- PAGE 6 : wish / finale ---------- */
+  #finale{background:var(--forest);color:var(--cream);}
+  #finale h2{font-size:clamp(1.8rem,5vw,3rem);margin-bottom:1rem;}
+  #finale p{max-width:480px;color:#d8e0d0;margin-bottom:2rem;}
+  .wish-btn{
+    background:var(--gold);color:var(--forest);border:none;
+    padding:.9rem 2.2rem;border-radius:999px;font-family:'Quicksand';font-weight:700;
+    font-size:1rem;cursor:pointer;letter-spacing:.03em;box-shadow:0 8px 24px rgba(217,164,65,.4);
+    transition:transform .2s;
+  }
+  .wish-btn:hover{transform:translateY(-3px);}
+  .confetti-piece{position:fixed;top:-5vh;z-index:5;border-radius:2px;pointer-events:none;}
+  #finale .credit{margin-top:3rem;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:#93a389;}
+
+  /* ---------- music toggle ---------- */
+  .music-btn{
+    position:fixed;top:16px;left:16px;z-index:20;
+    background:var(--paper);border:none;width:42px;height:42px;border-radius:50%;
+    box-shadow:0 6px 16px rgba(0,0,0,.15);cursor:pointer;font-size:1.1rem;
+    display:flex;align-items:center;justify-content:center;
+  }
+
+  @media (max-width:480px){
+    .grid{grid-template-columns:1fr 1fr;}
+    .certificate{padding:2.2rem 1.4rem;}
+    .sig .mark{font-size:1.4rem;}
+  }
+</style>
+</head>
+<body>
+
+<div class="spores" id="spores"></div>
+
+<!-- page nav dots -->
+<nav class="page-nav" id="pageNav">
+  <a href="#hero" class="active" data-i="0"></a>
+  <a href="#candles" data-i="1"></a>
+  <a href="#cert" data-i="2"></a>
+  <a href="#fan" data-i="3"></a>
+  <a href="#message" data-i="4"></a>
+  <a href="#finale" data-i="5"></a>
+</nav>
+
+<!-- music toggle: drop your own mp3 in the same folder, named grove-song.mp3, and this will play/pause it -->
+<button class="music-btn" id="musicBtn" title="play grove song">🎵</button>
+<audio id="groveAudio" src="grove-song.mp3" loop></audio>
+
+<!-- PAGE 1: HERO -->
+<section id="hero">
+  <div class="sticker star" style="width:56px;height:56px;top:12vh;left:8vw;--r:-10deg;animation:stickerSpin 5s ease-in-out infinite;">⭐</div>
+  <div class="sticker mush" style="width:48px;height:48px;bottom:14vh;left:12vw;--r:8deg;animation:stickerSpin 6s ease-in-out infinite;">🍄</div>
+  <div class="gift-tag">a lil gift, from Twilight 🙈</div>
+  <div class="eyebrow">Neverland Grove</div>
+  <div class="mush-row"><span>🍄</span><span>🍄</span><span>🍄</span><span>🍄</span></div>
+  <h1>Happy Birthday,<br><em>Wix</em> 🌿</h1>
+  <p>Somewhere past the last streetlight, there's a grove where nobody has to grow up. Today it's yours. Come in — the mushrooms have been waiting.</p>
+  <div class="scroll-hint">scroll down ↓</div>
+</section>
+
+<!-- PAGE 2: CANDLES -->
+<section id="candles">
+  <div class="eyebrow" style="color:#cfd9c6;">Chapter One</div>
+  <h2>Six candles, not twenty.</h2>
+  <p class="sub">The grove rounds down — some years just don't count. Tap each flame to blow it out and make a wish.</p>
+  <div class="cake" id="cakeEl">
+    <div class="candle-wrap" id="candleWrap"></div>
+  </div>
+  <div class="tap-msg" id="tapMsg">6 candles left to blow 🕯️</div>
+  <div class="made-wish" id="madeWish">wish made. the grove is listening. 🌙</div>
+  <button class="cut-btn" id="cutBtn">🔪 Cut the Cake</button>
+  <div class="slice-scene" id="sliceScene">🍰</div>
+  <div class="slice-msg" id="sliceMsg">a slice, served just for you 🍰</div>
+</section>
+
+<!-- PAGE 3: CERTIFICATE -->
+<section id="cert">
+  <div class="eyebrow" style="color:var(--sage-dark);">Chapter Two</div>
+  <div class="certificate">
+    <h2>The Peter Pan Clause</h2>
+    <p>Be it known throughout Neverland Grove and all mushroom rings therein, that on this day, the bearer of this certificate is granted lifelong exemption from adulthood, boring shoes, and taking anything too seriously.</p>
+    <p>She shall remain, by grove law, a child at heart — permitted unlimited wonder, glitter, naps, and Shoko Hoshi lore, for as long as she wishes.</p>
+    <div class="name">Wix, Captain of the Grove</div>
+    <div class="date">Issued on the 5th of August, 2026</div>
+    <p style="font-size:.9rem;">Witnessed and stamped in mushroom ink by her fellow forest-dweller.</p>
+    <div class="sig-row">
+      <div class="sig">
+        <div class="mark">Twilight</div>
+        <div class="lbl">Grove Keeper, Witness</div>
+      </div>
+      <div class="sig">
+        <div class="mark blank">sign here whenever you're ready</div>
+        <div class="lbl">Wix, Captain of the Grove</div>
+      </div>
+    </div>
+    <div class="stamp">Neverland Grove · Est. Today · Aged 20, Feeling 12 🍄</div>
+  </div>
+</section>
+
+<!-- PAGE 4: FAN CORNER -->
+<section id="fan">
+  <div class="sticker star" style="width:50px;height:50px;top:8vh;right:8vw;--r:12deg;animation:stickerSpin 5.5s ease-in-out infinite;">✨</div>
+  <div class="eyebrow" style="color:var(--sage-dark);">Chapter Three</div>
+  <h2>The Museum of Wix's Obsessions</h2>
+  <div class="grid" id="cardGrid">
+    <div class="card" data-fact="Every plush, every keychain, every tiny ceramic toadstool — cataloged and adored."><span class="ic">🍄</span><h3>The Mushroom Wing</h3><p>Tap for the collection log.</p><div class="fact">Every plush, every keychain, every tiny ceramic toadstool — cataloged and adored.</div></div>
+    <div class="card" data-fact="Star-shaped confetti falls here on request. No one is allowed to talk during a Shoko Hoshi moment."><span class="ic">⭐</span><h3>Shoko Hoshi Shrine</h3><p>Tap for the house rules.</p><div class="fact">Star-shaped confetti falls here on request. No one is allowed to talk during a Shoko Hoshi moment.</div></div>
+    <div class="card" data-fact="The paperwork says adult. The grove checked twice. The grove still disagrees."><span class="ic">🎂</span><h3>Turning 20, Technically</h3><p>Tap for the official ruling.</p><div class="fact">The paperwork says adult. The grove checked twice. The grove still disagrees.</div></div>
+    <div class="card" data-fact="No curfew, no alarms, no growing up before you're ready. Enforced by mushroom law."><span class="ic">🌙</span><h3>Bedtime Optional</h3><p>Tap for the fine print.</p><div class="fact">No curfew, no alarms, no growing up before you're ready. Enforced by mushroom law.</div></div>
+  </div>
+
+  <div class="star-shrine">
+    <div class="twinkles" id="twinkles"></div>
+    <div class="big-star">⭐</div>
+    <h3>For the Biggest Shoko Hoshi Fan Around</h3>
+    <p>Somewhere in this grove, the mushrooms clear a little and the sky opens up — just stars, just quiet, just the stuff you love most. This corner's built for you.</p>
+  </div>
+</section>
+
+<!-- PAGE 5: PERSONAL MESSAGE -->
+<section id="message">
+  <div class="eyebrow" style="color:#e8efe3;">Chapter Four</div>
+  <div class="letter">
+    <p>Captain,</p>
+    <p>Happy birthday. I know the number says twenty, but I've never once thought of you that way — you're the same person who lights up over a mushroom keychain and knows way too much lore about Shoko Hoshi, and I hope that never changes, not even a little.</p>
+    <p>Growing up is optional in the ways that matter. Stay exactly this soft, this excited about small things, this you.</p>
+    <p>From all the way in Pasrur to Colorado Springs — I hope today feels like it was built just for you, because today, it was.</p>
+    <div class="sign">— Twilight</div>
+  </div>
+</section>
+
+<!-- PAGE 6: FINALE -->
+<section id="finale">
+  <div class="eyebrow" style="color:#93a389;">Final Chapter</div>
+  <h2>Make one more wish.</h2>
+  <p>Twenty years old, forever young at heart. Here's to another year of mushrooms, stars, and never quite growing up.</p>
+  <button class="wish-btn" id="wishBtn">✨ Make a Wish</button>
+  <div class="credit">Happy Birthday, Wix · Neverland Grove</div>
+</section>
+
+<script>
+// floating spores
+const sporeContainer = document.getElementById('spores');
+for(let i=0;i<26;i++){
+  const s = document.createElement('div');
+  s.className='spore';
+  const size = 4 + Math.random()*8;
+  s.style.width = size+'px';
+  s.style.height = size+'px';
+  s.style.left = Math.random()*100+'vw';
+  s.style.animationDuration = (10+Math.random()*14)+'s';
+  s.style.animationDelay = (Math.random()*10)+'s';
+  sporeContainer.appendChild(s);
+}
+
+// twinkling stars inside shrine
+const twinkles = document.getElementById('twinkles');
+for(let i=0;i<24;i++){
+  const t = document.createElement('span');
+  t.textContent = '✦';
+  t.style.left = Math.random()*100+'%';
+  t.style.top = Math.random()*100+'%';
+  t.style.animationDelay = (Math.random()*3)+'s';
+  t.style.fontSize = (8+Math.random()*10)+'px';
+  twinkles.appendChild(t);
+}
+
+// page nav scroll-spy
+const navLinks = [...document.querySelectorAll('.page-nav a')];
+const sections = ['hero','candles','cert','fan','message','finale'].map(id=>document.getElementById(id));
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const idx = sections.indexOf(e.target);
+      navLinks.forEach(a=>a.classList.remove('active'));
+      if(navLinks[idx]) navLinks[idx].classList.add('active');
+    }
+  });
+},{threshold:0.6});
+sections.forEach(s=>io.observe(s));
+
+// candles
+const candleWrap = document.getElementById('candleWrap');
+const total = 6;
+let litCount = total;
+const tapMsg = document.getElementById('tapMsg');
+const madeWish = document.getElementById('madeWish');
+const cutBtn = document.getElementById('cutBtn');
+
+for(let i=0;i<total;i++){
+  const c = document.createElement('div');
+  c.className='candle';
+  const f = document.createElement('div');
+  f.className='flame';
+  c.appendChild(f);
+  candleWrap.appendChild(c);
+  f.addEventListener('click', ()=>{
+    if(!f.classList.contains('out')){
+      f.classList.add('out');
+      litCount--;
+      if(litCount>0){
+        tapMsg.textContent = litCount + ' candle' + (litCount===1?'':'s') + ' left to blow 🕯️';
+      } else {
+        tapMsg.textContent = 'all out! 🌬️';
+        madeWish.classList.add('show');
+        cutBtn.classList.add('show');
+      }
+    }
+  });
+}
+
+// cut the cake
+const cakeEl = document.getElementById('cakeEl');
+const sliceScene = document.getElementById('sliceScene');
+const sliceMsg = document.getElementById('sliceMsg');
+cutBtn.addEventListener('click', ()=>{
+  cutBtn.disabled = true;
+  cakeEl.style.opacity = '0.35';
+  sliceScene.classList.add('show');
+  sliceMsg.classList.add('show');
+  cutBtn.textContent = '🍰 served';
+});
+
+// mushroom museum flip cards
+document.querySelectorAll('.card').forEach(card=>{
+  card.addEventListener('click', ()=>{
+    card.classList.toggle('flipped');
+  });
+});
+
+// wish button confetti
+const wishBtn = document.getElementById('wishBtn');
+const colors = ['#D9A441','#E3AFC0','#8FAB86','#C1694F','#FAF3E9'];
+wishBtn.addEventListener('click', ()=>{
+  for(let i=0;i<60;i++){
+    const p = document.createElement('div');
+    p.className='confetti-piece';
+    const size = 5+Math.random()*7;
+    p.style.width = size+'px';
+    p.style.height = size*0.6+'px';
+    p.style.background = colors[Math.floor(Math.random()*colors.length)];
+    p.style.left = Math.random()*100+'vw';
+    p.style.opacity = '0.9';
+    document.body.appendChild(p);
+    const duration = 2200+Math.random()*1800;
+    const rotate = (Math.random()*720-360);
+    const drift = (Math.random()*200-100);
+    p.animate([
+      {transform:'translate(0,0) rotate(0deg)', opacity:1},
+      {transform:`translate(${drift}px, 105vh) rotate(${rotate}deg)`, opacity:0.9}
+    ],{duration:duration, easing:'cubic-bezier(.25,.46,.45,.94)'});
+    setTimeout(()=>p.remove(), duration+50);
+  }
+  wishBtn.textContent = '🌙 wish sent to the grove';
+  wishBtn.disabled = true;
+});
+
+// music toggle (needs grove-song.mp3 placed next to this file)
+const musicBtn = document.getElementById('musicBtn');
+const groveAudio = document.getElementById('groveAudio');
+let playing = false;
+musicBtn.addEventListener('click', ()=>{
+  if(!playing){
+    groveAudio.play().catch(()=>{ musicBtn.textContent='🎵'; });
+    musicBtn.textContent = '⏸️';
+    playing = true;
+  } else {
+    groveAudio.pause();
+    musicBtn.textContent = '🎵';
+    playing = false;
+  }
+});
+</script>
+</body>
+</html>
